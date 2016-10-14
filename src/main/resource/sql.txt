@@ -1,0 +1,17 @@
+create datebase exam;
+
+use exam;
+
+'CREATE TABLE `daily` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `date` int(8) NOT NULL,
+  `breakfast` decimal(6,2) DEFAULT NULL,
+  `lunch` decimal(6,2) DEFAULT NULL,
+  `dinner` decimal(6,2) DEFAULT NULL,
+  `other` decimal(6,2) DEFAULT NULL,
+  `totle_shuai` decimal(6,2) DEFAULT NULL,
+  `totle_notshuai` decimal(6,2) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `last_update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8';

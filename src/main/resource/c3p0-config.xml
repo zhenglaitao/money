@@ -1,0 +1,22 @@
+<c3p0-config>
+        <default-config>
+                <!--  
+                <property name="automaticTestTable">con_test</property>
+                -->
+                <property name="preferredTestQuery">SELECT 1 FROM DUAL</property>
+                <property name="idleConnectionTestPeriod">3</property>
+                <property name="breakAfterAcquireFailure">false</property>
+                <property name="acquireIncrement">5</property>
+                <property name="initialPoolSize">10</property>
+                <property name="maxIdleTime">300</property>
+                <property name="maxConnectionAge">3600</property>
+                <property name="maxPoolSize">50</property>
+                <property name="minPoolSize">10</property>
+                <property name="maxStatements">0</property>
+                <property name="numHelperThreads">36</property>
+                <property name="maxAdministrativeTaskTime">10</property>
+                <property name="testConnectionOnCheckin">false</property>
+                <property name="testConnectionOnCheckout">true</property>
+                <property name="checkoutTimeout">5000</property>
+        </default-config>
+</c3p0-config>

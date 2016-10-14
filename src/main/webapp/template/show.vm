@@ -1,0 +1,254 @@
+<html>
+
+	<head>
+		<title>daily</title>  
+		<link href="//cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap-theme.css" rel="stylesheet">
+		<link href="//cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="//cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.css" rel="stylesheet">
+		<link href="//cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="/js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="/js/serialize.js" ></script>
+		<script type="text/javascript" src="/js/script.js" ></script>
+		<script type="text/javascript" src="/js/jquery.blockUI.js" ></script>
+		<script src="//cdn.bootcss.com/bootstrap/3.0.1/js/bootstrap.js"></script>
+		<script src="//cdn.bootcss.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			select{
+			height:25px;
+			width:100px;
+			font-size: 14px;
+   			font-family: "微软雅黑";
+   			margin-bottom: 20px;
+   			margin-top: 10px;
+		}
+		table {
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+			color:#333333;
+			border-width: 1px;
+			border-color: #a9c6c9;
+			border-collapse: collapse;
+			margin-top:20px;
+		}
+		table th {
+			border-width: 1px;
+			padding: 4px;
+			border-style: solid;
+			border-color: #a9c6c9;
+		}
+		table td {
+			border-width: 1px;
+			padding: 4px;
+			border-style: solid;
+			border-color: #a9c6c9;
+		}
+		.oddrowcolor{
+			background-color:#d4e3e5;
+		}
+		.evenrowcolor{
+			background-color:#c3dde0;
+		}
+		input{
+			width:100px;	
+		}
+		.flagred{
+			font-size:14px;
+			color:red;
+		}
+		.flaggreen{
+			font-size:14px;
+			color:green;
+		}
+		</style>
+	</head>
+	
+	<body><div id="top"></div>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="page-header">
+						<h1>
+							Daily show
+						</h1>
+					</div>
+					<form id="myform" action="/index.htm">
+							<select name="date" id="date" onchange="changeTable();">
+								#foreach($date in ${dateList})  
+							    	<option value='$date'>$date </option> 
+							    #end 
+						    </select>
+					</form>
+					<ul class="nav nav-pills" id="nav_ul">
+						<li class="active">
+							 <a href="#before">明细1</a>
+						</li>
+						<li>
+							 <a href="#after">明细2</a>
+						</li>
+						<li class="">
+							 <a href="#list-group">本月合计</a>
+						</li>
+					</ul>
+					<div id="before" style="overflow: hidden">
+						<table class="altrowstable" id="alternatecolor" style="width: 100%">
+				    	<thead>
+				    		<th style="display: none">id</th>
+				    		<th style="display: none">operation</th>
+				    		<th>date</th>
+				    		<th>breakfast</th>
+				    		<th>lunch</th>
+				    		<th>dinner</th>
+				    		<th>other</th>
+				    		<th>totle_notshuai</th>
+				    		<th>totle_shuai</th>
+				    		<th>oper</th>
+				    		<th>flag</th>
+				    	</thead>
+				    	#foreach($daily in ${beferlist}) 
+					    	<tr index="$velocityCount">
+					    		<td style="display: none"><input id="id$velocityCount" value='$!daily.id'/>$!daily.id</td>
+					    		<td style="display: none"><input id="operation$velocityCount" value='$!daily.operation'/></td>
+					    		<td><input type="hidden" id="date$velocityCount" value='$!daily.date'/>$!daily.date</td>
+					    		<td><input id="breakfast$velocityCount" index='$velocityCount' onblur="blurss(this);" value='$!daily.breakfast'/></td>
+					    		<td><input id="lunch$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.lunch'/></td>
+					    		<td><input id="dinner$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.dinner'/></td>
+					    		<td><input id="other$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.other'/></td>
+					    		<td><input id="totle_notshuai$velocityCount" value='$!daily.totle_notshuai' readonly/></td>
+					    		<td><input id="totle_shuai$velocityCount" value='$!daily.totle_shuai'/></td>
+					    		<td><input type="button" value="保存" index="$velocityCount" onclick="save(this);"/></td>
+					    		<td><span id="flag$velocityCount"></span></td>
+					    	</tr>
+					    #end 
+				    </table>
+					</div>
+					<div id= "after" style="overflow: hidden;padding-bottom: 20px;">
+						<table class="altrowstable" id="alternatecolor" style="width: 100%">
+					    	<thead>
+					    		<th style="display: none">id</th>
+					    		<th style="display: none">operation</th>
+					    		<th>date</th>
+					    		<th>breakfast</th>
+					    		<th>lunch</th>
+					    		<th>dinner</th>
+					    		<th>other</th>
+					    		<th>totle_notshuai</th>
+					    		<th>totle_shuai</th>
+					    		<th>oper</th>
+					    		<th>flag</th>
+					    	</thead>
+					    	#foreach($daily in ${afterlist})  
+						    	<tr index="$velocityCount">
+						    		#set($velocityCount = $velocityCount + 16) 
+						    		<td style="display: none"><input id="id$velocityCount" value='$!daily.id'/>$!daily.id</td>
+						    		<td style="display: none"><input id="operation$velocityCount" value='$!daily.operation'/></td>
+						    		<td><input type="hidden" id="date$velocityCount" value='$!daily.date'/>$!daily.date</td>
+						    		<td><input id="breakfast$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.breakfast'/></td>
+						    		<td><input id="lunch$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.lunch'/></td>
+						    		<td><input id="dinner$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.dinner'/></td>
+						    		<td><input id="other$velocityCount" index="$velocityCount" onblur="blurss(this);" value='$!daily.other'/></td>
+						    		<td><input id="totle_notshuai$velocityCount" value='$!daily.totle_notshuai' readonly/></td>
+						    		<td><input id="totle_shuai$velocityCount" value='$!daily.totle_shuai'/></td>
+						    		<td><input type="button" value="保存" index="$velocityCount" onclick="save(this);"/></td>
+						    		<td><span id="flag$velocityCount"></span></td>
+						    	</tr>
+						    #end 
+					    </table>
+					</div>
+					<div class="list-group" id="list-group">
+						 <a href="#" class="list-group-item active">本月合计</a>
+						<div class="list-group-item">
+							帅 出：<span class="badge" style="margin-right:900px;">${totle_shuai}</span>
+						</div>
+						<div class="list-group-item">
+							非 帅 出：<span class="badge" style="margin-right:900px;">${totle_notshuai}</span>
+						</div>
+						<div class="list-group-item">
+							
+							 共：<span class="badge" style="margin-right:900px;">${totlenum}</span>
+						</div> <a class="list-group-item active"> <span class="badge" style="margin-right:900px;">${shuaichu}</span>帅 pay:</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	var showDate ='$showDate';
+	$(function(){
+		$("#date").val(showDate);
+		$("table tr:odd").css({background: "#d4e3e5"}); // 1, 3 行
+		$("table tr:even").css({background: "#c3dde0"}); // 2, 4 行
+		/* $("table tr").click(function(){
+			alert($(this).attr("index"));
+		}); */
+	});
+	function save(obj){
+		var index = obj.getAttribute('index');
+		var id = $("#id"+index).val();
+		var operation = $("#operation"+index).val();
+		var date = $("#date"+index).val();
+		var breakfast = $("#breakfast"+index).val();
+		var lunch = $("#lunch"+index).val();
+		var dinner = $("#dinner"+index).val();
+		var other = $("#other"+index).val();
+		var totle_notshuai = $("#totle_notshuai"+index).val();
+		var totle_shuai = $("#totle_shuai"+index).val();
+		console.log("id="+id+";operation="+operation+";date="+date+";breakfast="+breakfast+";lunch="+lunch+";dinner="+dinner+";other="+other+";totle_notshuai="+totle_notshuai+";totle_shuai="+totle_shuai);
+		//alert(obj.getAttribute('index'));
+		var params = {"id":id,"operation":operation,"date":date,"breakfast":breakfast,"lunch":lunch,"dinner":dinner,"other":other,"totle_notshuai":totle_notshuai,"totle_shuai":totle_shuai} ;
+		$.ajax({  
+			type:"post",//请求方式  
+			async:true,//同步执行
+			url:"/html/save.htm",//发送请求地址  
+			data: {arg: JSON.stringify(params)},
+			dataType:"json",//设置返回数据的格式  
+			success:function(data){
+				if(data.responseCode==200){
+					alert("保存成功");
+					$("#operation"+index).val("update");
+					$("#id"+index).val(data.id);
+					if(operation == "insert"){
+						$("#flag"+index).html("√ ");
+						$("#flag"+index).addClass("flagred");
+					}else{
+						$("#flag"+index).html("√ ");
+						$("#flag"+index).addClass("flaggreen");
+					}
+				}else{
+					alert("保存失败");
+				}
+			},
+			//请求出错的处理  
+			error:function(){
+				alert("请求出错，请联系管理员");
+			}  
+		});
+	}
+	
+	function blurss(obj){
+		var index = obj.getAttribute('index');
+		var breakfast = $("#breakfast"+index).val();
+		var lunch = $("#lunch"+index).val();
+		var dinner = $("#dinner"+index).val();
+		var other = $("#other"+index).val();
+		var totle = breakfast*1 + lunch*1 + dinner*1 + other*1;
+		if(totle == "0"){
+			totle = "";
+		}
+		$("#totle_notshuai"+index).val(totle);
+	}
+	function search(){
+		myform.submit();
+	}
+	
+	function changeTable(){
+		myform.submit();
+	}
+	$("#nav_ul > li").click(function(){
+		$.each($("#nav_ul > li"),function(idx,item){
+			$(this).removeClass("active");
+		});
+		$(this).addClass("active");
+	});
+	</script>
+</html>

@@ -1,0 +1,49 @@
+<html>
+
+	<head>
+		<title>daily</title>  
+		<script type="text/javascript" src="/js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="/js/serialize.js" ></script>
+		<script type="text/javascript" src="/js/jquery.blockUI.js" ></script>
+		
+	</head>
+	
+	<body>
+	<input id="time" />
+	</body>
+	<script type="text/javascript">
+	var timeOffset = '';
+	$(function(){
+		var serverDate = new Date($.ajax({async: false}).getResponseHeader("Date"));
+		var now = new Date();
+		timeOffset = now.getTime() - serverDate.getTime();
+		countDown("2016/08/26 17:17:25");
+	});
+	function countDown(targetDate){
+		alert();
+		setTimeout(function(){
+			$("#time").val(computeCountDown(targetDate));
+			setTimeout(arguments.callee, 1000);
+		}, 1000);
+	}
+
+	function computeCountDown(targetDate){
+		if(targetDate==undefined || targetDate.length==0)
+			return "";
+		var tTime = Math.round(new Date(targetDate).getTime()/1000);
+		var now = Math.round((new Date().getTime() - timeOffset)/1000);
+		var gap = tTime - now;
+		if(gap<0){
+			return "";
+		}
+		var d = Math.floor(gap/(3600*24));
+		var h = Math.floor((gap-d*3600*24)/3600);
+		var m = Math.floor(((gap-d*3600*24-h*3600))/60); 
+		var s = Math.floor(gap-d*3600*24-h*3600-m*60);
+		var hh = h<10? "0"+h : ""+h;
+		var mm = m<10? "0"+m : ""+m;
+		var ss = s<10? "0"+s : ""+s;
+		return hh+":"+mm+":"+ss;	
+	}
+	</script>
+</html>

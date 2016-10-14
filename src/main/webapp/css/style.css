@@ -1,0 +1,7 @@
+
+.izl-rmenu{position:fixed;left:95.8%;bottom:10px;padding-bottom:73px;background:url(../images/r_b.png) 0px bottom no-repeat;z-index:999;}
+.izl-rmenu .btn{width:72px;height:73px;margin-bottom:1px;cursor:pointer;position:relative;}
+.izl-rmenu .btn-phone{background-color:#a2abb0;background:url(../images/customer_service.png) 0px 0px no-repeat;}
+.izl-rmenu .btn-phone:hover{background-color:#f06f52;background:url(../images/customer_service_two.png) 0px 0px no-repeat;}
+.izl-rmenu .btn-top{background:url(../images/return_top.png) 0px 0px no-repeat;background-color:#fe9700;display:none;}
+.izl-rmenu .btn-top:hover{background-color:#f06f52;background:url(../images/return_top_two.png) 0px 0px no-repeat;}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" name="PBQ_CACHE">
+    <diskStore path="java.io.tmpdir"/>
+  	<!-- <cacheManagerPeerProviderFactory       
+        class="net.sf.ehcache.distribution.jgroups.JGroupsCacheManagerPeerProviderFactory"       
+        properties="file=jgroups_tcp.xml" />  -->
+        
+    <defaultCache
+            maxBytesLocalHeap="10M"
+            maxBytesLocalDisk="10M"
+            eternal="false"
+            timeToIdleSeconds="43200"
+            timeToLiveSeconds="43200"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+    <!-- <cache name="permissioncache"
+            maxBytesLocalHeap="10M"
+            maxBytesLocalDisk="10M"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <cacheEventListenerFactory  
+        	class="net.sf.ehcache.distribution.jgroups.JGroupsCacheReplicatorFactory"  
+        	properties="replicateAsynchronously=true,asynchronousReplicationIntervalMillis=5,replicatePuts=true,replicateUpdates=true,replicateUpdatesViaCopy=true,replicateRemovals=true" />
+	</cache>
+	 <cache name="deploycache1"
+            maxBytesLocalHeap="10M"
+            maxBytesLocalDisk="10M"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600"
+            overflowToDisk="true"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <cacheEventListenerFactory  
+        	class="net.sf.ehcache.distribution.jgroups.JGroupsCacheReplicatorFactory"  
+        	properties="replicateAsynchronously=true,replicatePuts=true,replicateUpdates=true,replicateUpdatesViaCopy=false,replicateRemovals=true" />
+		<cacheEventListenerFactory 
+			class="com.purang.bigada.cache.deploy.DeployListenerFactory" properties="" listenFor="remote"/>
+	</cache> -->
+    <cache name="cache1"
+            maxBytesLocalHeap="12M"
+            maxBytesLocalDisk="12M"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+   		<!-- <cacheEventListenerFactory  
+        	class="net.sf.ehcache.distribution.jgroups.JGroupsCacheReplicatorFactory"  
+        	properties="replicateAsynchronously=true,asynchronousReplicationIntervalMillis=5,replicatePuts=true,replicateUpdates=true,replicateUpdatesViaCopy=true,replicateRemovals=true" />     --> 
+    </cache>
+</ehcache>
