@@ -19,6 +19,7 @@ public class Daily implements Serializable{
 	private BigDecimal other;
 	private String operation;
 	private Integer index;
+	private Integer change_times;
 	public Integer getIndex() {
 		return index;
 	}
@@ -78,5 +79,11 @@ public class Daily implements Serializable{
 	}
 	public void setOperation(String operation) {
 		this.operation = operation;
+	}
+	public Integer getChange_times() {
+		return change_times;
+	}
+	public void setChange_times(Integer change_times) {
+		this.change_times = change_times;
 	}
 }

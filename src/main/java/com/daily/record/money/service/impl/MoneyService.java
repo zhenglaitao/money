@@ -8,14 +8,16 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.json.JSONObject;
 
 public class MoneyService {
 
 	private Connection conn;
 	
-	private static final String INSERT_SQL = "insert into daily (date,breakfast,lunch,dinner,other,totle_notshuai,totle_shuai) values (?,?,?,?,?,?,?)";
-	private static final String UPDATE_SQL = "update daily set breakfast = ?, lunch = ?, dinner = ?, other = ?, totle_notshuai = ?, totle_shuai = ?, last_update_time = ? where id =?";
+	private static final String INSERT_SQL = "insert into daily (date,breakfast,lunch,dinner,other,totle_notshuai,totle_shuai,change_times) values (?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_SQL = "update daily set breakfast = ?, lunch = ?, dinner = ?, other = ?, totle_notshuai = ?, totle_shuai = ?, last_update_time = ?, change_times = ? where id =?";
 	
 	public MoneyService() {
 		// TODO Auto-generated constructor stub
@@ -33,7 +35,8 @@ public class MoneyService {
 			stat.setObject(5, convertNullStr(json.getString("totle_notshuai")));
 			stat.setObject(6, convertNullStr(json.getString("totle_shuai")));
 			stat.setString(7, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-			stat.setInt(8, json.getInt("id"));
+			stat.setInt(8, StringUtils.isBlank(json.getInt("change_times")+"")?1:1+json.getInt("change_times"));
+			stat.setInt(9, json.getInt("id"));
 			if(stat.executeUpdate() > 0){
 				return "200";
 			}else{
@@ -57,6 +60,7 @@ public class MoneyService {
 			stat.setObject(5, convertNullStr(json.getString("other")));
 			stat.setObject(6, convertNullStr(json.getString("totle_notshuai")));
 			stat.setObject(7, convertNullStr(json.getString("totle_shuai")));
+			stat.setObject(8, 1);
 			if(stat.executeUpdate() > 0){
 				ResultSet rs = stat.getGeneratedKeys();  
 				Object retId = null;;

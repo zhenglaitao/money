@@ -104,6 +104,7 @@
 				    		<th>totle_shuai</th>
 				    		<th>oper</th>
 				    		<th>flag</th>
+				    		<th>changetimes</th>
 				    	</thead>
 				    	#foreach($daily in ${beferlist}) 
 					    	<tr index="$velocityCount">
@@ -118,6 +119,7 @@
 					    		<td><input id="totle_shuai$velocityCount" value='$!daily.totle_shuai'/></td>
 					    		<td><input type="button" value="保存" index="$velocityCount" onclick="save(this);"/></td>
 					    		<td><span id="flag$velocityCount"></span></td>
+					    		<td><span id="change_times$velocityCount" >$!daily.change_times</span></td>
 					    	</tr>
 					    #end 
 				    </table>
@@ -136,6 +138,7 @@
 					    		<th>totle_shuai</th>
 					    		<th>oper</th>
 					    		<th>flag</th>
+					    		<th>changetimes</th>
 					    	</thead>
 					    	#foreach($daily in ${afterlist})  
 						    	<tr index="$velocityCount">
@@ -151,6 +154,7 @@
 						    		<td><input id="totle_shuai$velocityCount" value='$!daily.totle_shuai'/></td>
 						    		<td><input type="button" value="保存" index="$velocityCount" onclick="save(this);"/></td>
 						    		<td><span id="flag$velocityCount"></span></td>
+						    		<td><span id="change_times$velocityCount" >$!daily.change_times</span></td>
 						    	</tr>
 						    #end 
 					    </table>
@@ -183,6 +187,7 @@
 		}); */
 	});
 	function save(obj){
+		var num = 1;
 		var index = obj.getAttribute('index');
 		var id = $("#id"+index).val();
 		var operation = $("#operation"+index).val();
@@ -193,9 +198,10 @@
 		var other = $("#other"+index).val();
 		var totle_notshuai = $("#totle_notshuai"+index).val();
 		var totle_shuai = $("#totle_shuai"+index).val();
+		var change_times = $("#change_times"+index).text();
 		console.log("id="+id+";operation="+operation+";date="+date+";breakfast="+breakfast+";lunch="+lunch+";dinner="+dinner+";other="+other+";totle_notshuai="+totle_notshuai+";totle_shuai="+totle_shuai);
 		//alert(obj.getAttribute('index'));
-		var params = {"id":id,"operation":operation,"date":date,"breakfast":breakfast,"lunch":lunch,"dinner":dinner,"other":other,"totle_notshuai":totle_notshuai,"totle_shuai":totle_shuai} ;
+		var params = {"id":id,"operation":operation,"date":date,"breakfast":breakfast,"lunch":lunch,"dinner":dinner,"other":other,"totle_notshuai":totle_notshuai,"totle_shuai":totle_shuai,"change_times":change_times} ;
 		$.ajax({  
 			type:"post",//请求方式  
 			async:true,//同步执行
@@ -209,9 +215,11 @@
 					$("#id"+index).val(data.id);
 					if(operation == "insert"){
 						$("#flag"+index).html("√ ");
+						$("#change_times"+index).html("1");
 						$("#flag"+index).addClass("flagred");
 					}else{
 						$("#flag"+index).html("√ ");
+						$("#change_times"+index).html(parseInt(num)+parseInt(change_times));
 						$("#flag"+index).addClass("flaggreen");
 					}
 				}else{

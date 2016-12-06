@@ -69,7 +69,7 @@ public class RecordController extends AbstractRequest{
 		if(date == null){
 			date = showDate;
 		}
-		String key = com.daily.record.money.util.KeyUtils.GetMd5Key("ListBillDanbianRequest" + date);
+		String key = com.daily.record.money.util.KeyUtils.GetMd5Key("RecordController" + date);
 		
 		Calendar now = Calendar.getInstance();
 		String newShowDate = new SimpleDateFormat("yyyyMM").format(now.getTime());
@@ -91,10 +91,11 @@ public class RecordController extends AbstractRequest{
 		try {
 			//取cache
 			if(cache.get(key+"List") != null){
-				logger.info("read data from cache key-----"+key+"List");
+				logger.info("read data from cache true,key-----"+key+"List");
 				list = (List<Daily>) cache.get(key+"List").getObjectValue();
 			}else{
 				//查询
+				logger.info("read data from cache false");
 				conn = getMysqlConn();
 				PreparedStatement stat = conn.prepareStatement("select * from daily where date >= ? and date < ? ");
 				stat.setInt(1, Integer.valueOf(startDate));
@@ -109,7 +110,7 @@ public class RecordController extends AbstractRequest{
 			}
 			//循环处理得出totle
 			for(int i=0;i<list.size();i++){
-				System.out.println(list.get(i).getDate());
+				//System.out.println(list.get(i).getDate());
 				dataMap.put(list.get(i).getDate()+"", list.get(i));//前台保证 日期不为空
 				if(list.get(i).getTotle_shuai() != null){
 					totle_shuai += list.get(i).getTotle_shuai().doubleValue();

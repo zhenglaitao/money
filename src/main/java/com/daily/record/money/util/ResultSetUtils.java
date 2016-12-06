@@ -471,8 +471,10 @@ public class ResultSetUtils {
                         try {   
                             //// 利用反射获取对象  
                             //JavaBean内部属性和ResultSet中一致时候   
+                        	//System.out.println(value.getClass());
                             Method setMethod = obj.getClass().getMethod(   
                                     setMethodName, value.getClass());   
+                            //System.out.println(setMethod+"----"+setMethodName);
                             setMethod.invoke(obj, value);   
                         } catch (Exception e) {   
                             //JavaBean内部属性和ResultSet中不一致时候，使用String来输入值。   
